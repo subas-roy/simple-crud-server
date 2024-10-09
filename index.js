@@ -1,12 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const app = express();
-const port = process.env.PORT || 5000;
+const express = require('express')
+const cors = require('cors')
+const { MongoClient, ServerApiVersion } = require('mongodb')
+const app = express()
+const port = process.env.PORT || 5000
 
 // middlewares
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
 // Connection string
 const uri = "mongodb+srv://subasroy46:i1szvfSf9qHUQNiR@cluster0.mrd4l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -23,6 +23,13 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+    // POST operation
+    app.post('/users', async(req, res) => {
+      const user = req.body;
+      console.log('new user: ', user)
+    })
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
@@ -39,5 +46,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`SIMPLE CRUD is running on port: ${port}`);
+  console.log(`SIMPLE CRUD is running on port: ${port}`)
 })
