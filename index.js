@@ -28,6 +28,13 @@ async function run() {
     const db = client.db("usersDB");
     const col = db.collection("users");
 
+    // GET operation
+    app.get('/users', async(req, res) => {
+      const cursor = col.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
     // POST operation
     app.post('/users', async(req, res) => {
       const user = req.body;
