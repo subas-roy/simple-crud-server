@@ -24,10 +24,17 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    // Get the database and collection on which to run the operation
+    const db = client.db("usersDB");
+    const col = db.collection("users");
+
     // POST operation
     app.post('/users', async(req, res) => {
       const user = req.body;
-      console.log('new user: ', user)
+      console.log('new user: ', user);
+      // Insert the documents into the specified collection        
+      const result = await col.insertOne(user);
+      res.send(result);
     })
 
     // Send a ping to confirm a successful connection
